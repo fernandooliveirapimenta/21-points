@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -17,5 +18,7 @@ public interface PointsRepository extends JpaRepository<Points, Long> {
 
     @Query("select points from Points points where points.user.login = ?#{principal.username}")
     Page<Points> findByUserIsCurrentUser(Pageable paf);
+
+    List<Points> findAllByDateBetweenAndUserLogin(LocalDate firstDate, LocalDate secondDate, String login);
 
 }
